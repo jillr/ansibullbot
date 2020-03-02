@@ -22,7 +22,7 @@ def get_component_match_facts(iw, component_matcher, valid_labels):
         u'is_new_plugin': False,
         u'is_core': False,
         u'is_multi_module': False,
-        u'module_match': None,
+        u'module_match': [],
         u'component': None,
         u'component_name': [],
         u'component_match_strategy': None,
