@@ -94,7 +94,7 @@ class ModuleIndexer(object):
         if gitrepo:
             self.gitrepo = gitrepo
         else:
-            self.gitrepo = GitRepoWrapper(cachedir=cachedir, repo=u'https://github.com/ansible-collections/general')
+            self.gitrepo = GitRepoWrapper(cachedir=cachedir, repo=u'https://github.com/ansible-collections/community.general')
 
         # sqlalchemy
         unc = os.path.join(cachedir, u'ansible_module_indexer.db')

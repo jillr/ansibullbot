@@ -99,12 +99,12 @@ from ansibullbot.parsers.botmetadata import BotMetadataParser
 
 
 REPOS = [
-    u'ansible-collections/general',
+    u'ansible-collections/community.general',
 ]
 
 # Collection Repos, where Bot is allowed to run
 CREPOS = [
-    u'ansible-collections/general',
+    u'ansible-collections/community.general',
     u'ansible-collections/aws',
     u'ansible-collections/windows',
 ]
