@@ -334,7 +334,7 @@ class AnsibleTriage(DefaultTriager):
             if self._ansible_core_team is None:
                 teams = [
                     u'community-team',
-                    u'community-advisory-group',
+                    u'elders',
                 ]
                 self._ansible_core_team = self.get_core_team(u'ansible-collections', teams)
         else:
