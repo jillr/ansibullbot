@@ -21,8 +21,10 @@ import six
 import requests
 from tenacity import retry, stop_after_attempt, wait_fixed, RetryError, TryAgain
 
-
-ANSIBLE_PROJECT_ID = u'573f79d02a8192902e20e34b'
+# FIXME: Need to get all of the Shippable Project IDs for the various collections and define them here
+# 5e664a167c32620006c9fa50 community.general
+#ANSIBLE_PROJECT_ID = u'573f79d02a8192902e20e34b'
+ANSIBLE_PROJECT_ID = u'5e664a167c32620006c9fa50' # community.general
 SHIPPABLE_URL = C.DEFAULT_SHIPPABLE_URL
 ANSIBLE_RUNS_URL = u'%s/runs?projectIds=%s&isPullRequest=True' % (
     SHIPPABLE_URL,
