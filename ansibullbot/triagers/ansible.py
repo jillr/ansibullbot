@@ -132,7 +132,7 @@ class AnsibleActions(DefaultActions):
 
 class AnsibleTriage(DefaultTriager):
 
-    BOTNAMES = [u'ansibot', u'ansibotdev', u'gregdek', u'robynbergeron']
+    BOTNAMES = [u'ansibot', u'ansibotdev', u'ansibullbot', u'gregdek', u'robynbergeron']
 
     COMPONENTS = []
 
