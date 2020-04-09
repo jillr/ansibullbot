@@ -181,7 +181,7 @@ def needs_community_review(meta, issue):
     return True
 
 
-def get_review_facts(issuewrapper, meta):
+def get_review_facts(self, issuewrapper, meta):
     # Thanks @jpeck-resilient for this new module. When this module
     # receives 'shipit' comments from two community members and any
     # 'needs_revision' comments have been resolved, we will mark for
@@ -197,6 +197,7 @@ def get_review_facts(issuewrapper, meta):
         u'committer_review': False,
     }
 
+
     iw = issuewrapper
     if not iw.is_pullrequest():
         return rfacts
@@ -209,7 +210,7 @@ def get_review_facts(issuewrapper, meta):
     if meta[u'is_needs_rebase']:
         return rfacts
 
-    supported_by = get_supported_by(iw, meta)
+    supported_by = get_supported_by(self, iw, meta)
 
     if supported_by == u'community':
         rfacts[u'community_review'] = True
@@ -491,7 +492,7 @@ def get_shipit_facts(issuewrapper, inmeta, module_indexer, core_team=[], botname
     return nmeta
 
 
-def get_supported_by(issuewrapper, meta):
+def get_supported_by(self, issuewrapper, meta):
 
     # http://docs.ansible.com/ansible/modules_support.html
     # certified: maintained by the community and reviewed by Ansible core team.
@@ -509,6 +510,10 @@ def get_supported_by(issuewrapper, meta):
     if meta['is_new_module']:
         supported_by = 'community'
     '''
+
+    # And Collection running the bot is assumed to be community (not core, certified, network, etc)
+    if self.collection:
+        return (u'community')
 
     supported_by = u'core'
     if not meta.get(u'component_support'):

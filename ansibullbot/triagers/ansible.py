@@ -2006,7 +2006,7 @@ class AnsibleTriage(DefaultTriager):
                 core_team=self.ansible_core_team, botnames=self.BOTNAMES
             )
         )
-        self.meta.update(get_review_facts(iw, self.meta))
+        self.meta.update(get_review_facts(self, iw, self.meta))
 
         # bot_status needed?
         self.meta.update(get_bot_status_facts(iw, self.module_indexer, core_team=self.ansible_core_team, bot_names=self.BOTNAMES))
