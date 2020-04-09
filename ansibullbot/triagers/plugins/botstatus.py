@@ -1,3 +1,5 @@
+import logging
+
 import six
 
 from ansibullbot.utils.extractors import remove_markdown_blockquotes
@@ -8,6 +10,8 @@ def get_bot_status_facts(issuewrapper, module_indexer, core_team=[], bot_names=[
     Whether a bot_status command needs to be processed
     """
     iw = issuewrapper
+    logging.debug('Searching for bot_status for: %s' % iw)
+    logging.debug('Allowed users: %s, %s, %s' % (iw.submitter, core_team, module_indexer.all_maintainers))
     bs = False
 
     # Traverse the entire history to find out if there's an unfulfilled bot_status
@@ -23,25 +27,30 @@ def get_bot_status_facts(issuewrapper, module_indexer, core_team=[], bot_names=[
             if ev[u'actor'] in bot_names:
                 # Post is a bot_status comment
                 if is_bot_status_comment(body):
+                    logging.debug('bot_status reply found')
                     # The request has already been fulfilled
                     bs = False
                     continue
         else:
             # Make sure the comment is not from the bot or a previous bot_status fulfillment
             if ev[u'actor'] in bot_names or is_bot_status_comment(body):
+                logging.debug('comment skipped: from the bot')
                 continue
 
             # Only certain people can request bot_status to prevent DOS attacks
-            if ev[u'actor'] not in core_team or \
-                    ev[u'actor'] != iw.submitter or \
+            if ev[u'actor'] not in core_team and \
+                    ev[u'actor'] != iw.submitter and \
                     ev[u'actor'] not in module_indexer.all_maintainers:
+                logging.debug('comment skipped: not allowed actor')
                 continue
 
             # Check for a bot_status command
             if u'bot_status' in body:
+                logging.debug('bot_status found')
                 bs = True
                 continue
 
+    logging.debug('bot_status %s for: %s' % (bs, iw))
     return {u'needs_bot_status': bs}
 
 
