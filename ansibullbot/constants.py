@@ -246,7 +246,7 @@ DEFAULT_BOTNAMES = get_config(
     p,
     DEFAULTS,
     'botnames',
-    '%s_GITHUB_URL' % PROG_NAME.upper(),
+    '%s_BOTNAMES' % PROG_NAME.upper(),
     [u'ansibot', u'ansibotdev', u'ansibullbot'],
     value_type='list'
 )
