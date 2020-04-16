@@ -132,8 +132,6 @@ class AnsibleActions(DefaultActions):
 
 class AnsibleTriage(DefaultTriager):
 
-    BOTNAMES = [u'ansibot', u'ansibotdev', u'ansibullbot', u'gregdek', u'robynbergeron']
-
     COMPONENTS = []
 
     EMPTY_META = {
@@ -335,6 +333,7 @@ class AnsibleTriage(DefaultTriager):
                 teams = [
                     u'community-team',
                     u'elders',
+                    u'proven-maintainers',
                 ]
                 self._ansible_core_team = self.get_core_team(u'ansible-collections', teams)
         else:
@@ -346,7 +345,7 @@ class AnsibleTriage(DefaultTriager):
                 ]
                 self._ansible_core_team = self.get_core_team(u'ansible', teams)
 
-        return [x for x in self._ansible_core_team if x not in self.BOTNAMES]
+        return [x for x in self._ansible_core_team if x not in C.DEFAULT_BOTNAMES]
 
     def get_rate_limit(self):
         return self.gh.get_rate_limit().raw_data
@@ -1145,14 +1144,14 @@ class AnsibleTriage(DefaultTriager):
                     # only add these if no c: labels have ever been changed by human
                     clabels = iw.history.get_changed_labels(
                         prefix=u'c:',
-                        bots=self.BOTNAMES
+                        bots=C.DEFAULT_BOTNAMES
                     )
 
                     if not clabels:
                         for cl in self.meta[u'component_labels']:
                             ul = iw.history.was_unlabeled(
                                 cl,
-                                bots=self.BOTNAMES
+                                bots=C.DEFAULT_BOTNAMES
                             )
                             if not ul and \
                                     cl not in iw.labels and \
@@ -2003,13 +2002,13 @@ class AnsibleTriage(DefaultTriager):
         self.meta.update(
             get_shipit_facts(
                 iw, self.meta, self.module_indexer,
-                core_team=self.ansible_core_team, botnames=self.BOTNAMES
+                core_team=self.ansible_core_team, botnames=C.DEFAULT_BOTNAMES
             )
         )
         self.meta.update(get_review_facts(self, iw, self.meta))
 
         # bot_status needed?
-        self.meta.update(get_bot_status_facts(iw, self.module_indexer, core_team=self.ansible_core_team, bot_names=self.BOTNAMES))
+        self.meta.update(get_bot_status_facts(iw, self.module_indexer, core_team=self.ansible_core_team, bot_names=C.DEFAULT_BOTNAMES))
 
         # who is this waiting on?
         self.meta.update(self.waiting_on(iw, self.meta))
@@ -2208,13 +2207,13 @@ class AnsibleTriage(DefaultTriager):
             maintainers,
             vcommands,
             uselabels=False,
-            botnames=self.BOTNAMES
+            botnames=C.DEFAULT_BOTNAMES
         )
         meta[u'submitter_commands'] = iw.history.get_commands(
             iw.submitter,
             vcommands,
             uselabels=False,
-            botnames=self.BOTNAMES
+            botnames=C.DEFAULT_BOTNAMES
         )
 
         # JIMI_SKIP!!!

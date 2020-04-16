@@ -37,7 +37,7 @@ def is_needsinfo(triager, issue):
             [x for x in maintainers
                 if x != u'DEPRECATED' and
                 x != issue.submitter and
-                x not in triager.BOTNAMES]
+                x not in C.DEFAULT_BOTNAMES]
         )
     )
 
@@ -56,7 +56,7 @@ def is_needsinfo(triager, issue):
         #    continue
 
         # allow anyone who is not the bot to trigger needs_info
-        if event[u'actor'] in triager.BOTNAMES:
+        if event[u'actor'] in C.DEFAULT_BOTNAMES:
             continue
 
         if event[u'event'] == u'labeled':

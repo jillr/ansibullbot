@@ -105,7 +105,7 @@ def get_needs_revision_facts(triager, issuewrapper, meta, shippable=None):
     #www_reviews = triager.gws.scrape_pullrequest_review(rfn, iw.number)
 
     maintainers = [x for x in triager.ansible_core_team
-                   if x not in triager.BOTNAMES]
+                   if x not in C.DEFAULT_BOTNAMES]
 
     #if meta.get('module_match'):
     #    maintainers += meta['module_match'].get('maintainers', [])
@@ -208,7 +208,7 @@ def get_needs_revision_facts(triager, issuewrapper, meta, shippable=None):
 
         for event in iw.history.history:
 
-            if event[u'actor'] in triager.BOTNAMES:
+            if event[u'actor'] in C.DEFAULT_BOTNAMES:
                 continue
 
             if event[u'actor'] in maintainers and \

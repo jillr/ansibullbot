@@ -173,10 +173,11 @@ class DefaultWrapper(object):
             lines = body.split(u'\n')
             lines = [y.strip() for y in lines if y.strip()]
 
+            # FIXME, should this be `in C.DEFAULT_BOTNAMES?
             if lines[-1].startswith(u'<!---') \
                     and lines[-1].endswith(u'--->') \
                     and u'boilerplate:' in lines[-1]\
-                    and x.user.login == u'ansibot':
+                    and x.user.login == C.DEFAULT_GITHUB_USERNAME:
 
                 parts = lines[-1].split()
                 boilerplate = parts[2]
@@ -583,7 +584,7 @@ class DefaultWrapper(object):
 
             # FIXME - abstract this into a historywrapper method
             vlabels = [x for x in self.history.history if x[u'event'] == u'labeled']
-            vlabels = [x for x in vlabels if x[u'actor'] not in [u'ansibot', u'ansibotdev']]
+            vlabels = [x for x in vlabels if x[u'actor'] not in C.DEFAULT_BOTNAMES]
             vlabels = [x[u'label'] for x in vlabels if x[u'label'].startswith(u'affects_')]
             vlabels = [x for x in vlabels if x.startswith(u'affects_')]
 
@@ -953,7 +954,8 @@ class DefaultWrapper(object):
     def submitter(self):
         # auto-migrated issue by ansibot{-dev}
         # figure out the original submitter
-        if self.instance.user.login.startswith(u'ansibot'):
+        # FIXME Is this right?
+        if self.instance.user.login in C.DEFAULT_BOTNAMES:
             m = re.match(u'From @(.*) on', self.instance.body)
             if m:
                 return m.group(1)
