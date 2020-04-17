@@ -148,7 +148,10 @@ class AnsibleComponentMatcher(object):
                 continue
             if not self.gitrepo.exists(fn):
                 continue
-            mname = os.path.basename(fn)
+            # Some collections like community.general may have symlinks for modules in the root
+            # of plugins/modules/
+            # we only want to match on the real location (which is in botmeta)
+            mname = os.path.realpath(os.path.basename(fn))
             mname = mname.replace(u'.py', u'').replace(u'.ps1', u'')
             if mname.startswith(u'__'):
                 continue
@@ -177,7 +180,7 @@ class AnsibleComponentMatcher(object):
         checkoutdir = os.path.abspath(checkoutdir)
         for root, directories, filenames in os.walk(os.path.join(checkoutdir, 'plugins', 'modules')):
             for filename in filenames:
-                naive_fpath = os.path.join(root, filename)
+                naive_fpath = os.path.realpath(os.path.join(root, filename))
                 fpath = naive_fpath.replace(checkoutdir + u'/', u'')
                 assert fpath != naive_fpath
 
