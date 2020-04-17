@@ -152,7 +152,7 @@ def get_component_match_facts(iw, component_matcher, valid_labels):
 
         else:
 
-            bpcs = iw.history.get_boilerplate_comments(dates=True, content=True, botnames=C.DEFAULT_BOTNAMES)
+            bpcs = iw.history.get_boilerplate_comments(dates=True, content=True )
             bpcs = [x for x in bpcs if x[1] == u'components_banner']
 
             if bpcs:
