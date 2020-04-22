@@ -110,6 +110,10 @@ CREPOS = [
     u'ansible-collections/windows',
 ]
 
+repo_data = {'ansible-collections/community.general': {'branch': 'master', 'shippable_prj' : '5e664a167c32620006c9fa50'},
+        }
+
+
 MREPOS = [x for x in REPOS if u'ansible' in x]
 REPOMERGEDATE = datetime.datetime(2016, 12, 6, 0, 0, 0)
 MREPO_CLOSE_WINDOW = 60
@@ -860,7 +864,8 @@ class AnsibleTriage(DefaultTriager):
         if not self.meta[u'is_bad_pr']:
             if iw.is_issue() and self.meta.get(u'needs_component_message'):
                 tvars = {
-                    u'meta': self.meta
+                    u'meta': self.meta,
+                    u'base_url': 'https://github.com/%s/blob/%s/' % (self.collection,repo_data[self.collection][u'branch']),
                 }
                 comment = self.render_boilerplate(
                     tvars, boilerplate=u'components_banner'

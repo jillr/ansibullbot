@@ -321,7 +321,7 @@ def get_needs_revision_facts(triager, issuewrapper, meta, shippable=None):
             has_merge_commit_notification = False
         else:
             mc_comments = iw.history.search_user_comments(
-                triager.BOTNAMES,
+                C.DEFAULT_BOTNAMES,
                 u'boilerplate: merge_commit_notify'
             )
             last_mc_comment = mc_comments[-1]
