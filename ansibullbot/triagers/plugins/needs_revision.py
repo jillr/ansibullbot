@@ -423,12 +423,12 @@ def get_needs_revision_facts(triager, issuewrapper, meta, shippable=None):
                     }
 
     # https://github.com/ansible/ansibullbot/issues/302
-    if len(iw.new_modules) > 1:
-        has_multiple_modules = True
-        if u'multiple_module_notify' not in bpcs:
-            needs_multiple_new_modules_notification = True
-        needs_revision = True
-        needs_revision_msgs.append(u'multiple new modules')
+    #if len(iw.new_modules) > 1:
+    #    has_multiple_modules = True
+    #    if u'multiple_module_notify' not in bpcs:
+    #        needs_multiple_new_modules_notification = True
+    #    needs_revision = True
+    #    needs_revision_msgs.append(u'multiple new modules')
 
     logging.info(u'mergeable_state is %s' % mstate)
     logging.info(u'needs_rebase is %s' % needs_rebase)
