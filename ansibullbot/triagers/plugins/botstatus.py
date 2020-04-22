@@ -10,8 +10,6 @@ def get_bot_status_facts(issuewrapper, module_indexer, core_team=[], bot_names=[
     Whether a bot_status command needs to be processed
     """
     iw = issuewrapper
-    logging.debug('Searching for bot_status for: %s' % iw)
-    logging.debug('Allowed users: %s, %s, %s' % (iw.submitter, core_team, module_indexer.all_maintainers))
     bs = False
 
     # Traverse the entire history to find out if there's an unfulfilled bot_status
