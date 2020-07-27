@@ -99,20 +99,12 @@ from ansibullbot.triagers.plugins.deprecation import get_deprecation_facts
 from ansibullbot.parsers.botmetadata import BotMetadataParser
 
 
-REPOS = [
-    u'ansible-collections/community.general',
-]
-
-# Collection Repos, where Bot is allowed to run
-CREPOS = [
-    u'ansible-collections/community.general',
-    u'ansible-collections/aws',
-    u'ansible-collections/windows',
-]
-
+REPOS = C.DEFAULT_REPOS
+CREPOS = C.DEFAULT_CREPOS
 repo_data = {'ansible-collections/community.general': {'branch': 'master', 'shippable_prj' : '5e664a167c32620006c9fa50'},
-        }
-
+             'ansible-collections/community.aws': {'branch': 'main', 'shippable_prj' : '5e5ed2ae0fcc0d0006d2c037'},
+             'ansible-collections/amazon.aws': {'branch': 'main', 'shippable_prj' : '5e4451b6aa9a61000733064c'},
+             }
 
 MREPOS = [x for x in REPOS if u'ansible' in x]
 REPOMERGEDATE = datetime.datetime(2016, 12, 6, 0, 0, 0)
@@ -2464,12 +2456,12 @@ class AnsibleTriage(DefaultTriager):
                              " (NOTE: only useful if you have commit access to" \
                              " the repo in question.)"
 
-        parser.add_argument("--collection", "-c", type=str, choices=CREPOS,
+        parser.add_argument("--collection", "-c", type=str,
                             required=True,
-                            help="GitHub Collection repo to triage")
+                            help="GitHub Collection repo to triage (defaults to ansible-collections/community.general)")
 
-        parser.add_argument("--repo", "-r", type=str, choices=MREPOS,
-                            help="GitHub repo to triage (defaults to all)")
+        parser.add_argument("--repo", "-r", type=str,
+                            help="GitHub repo to triage (defaults to ansible/ansible)")
 
         parser.add_argument("--skip_no_update", action="store_true",
                             help="skip processing if updated_at hasn't changed")

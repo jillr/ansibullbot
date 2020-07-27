@@ -333,6 +333,23 @@ DEFAULT_STALE_WINDOW = get_config(
     value_type='int'
 )
 
+DEFAULT_REPOS = get_config(
+    p,
+    DEFAULTS,
+    'repos',
+    '%s_REPOS' % PROG_NAME.upper(),
+    [u'ansible/ansible'],
+    value_type='list'
+)
+
+DEFAULT_CREPOS = get_config(
+    p,
+    DEFAULTS,
+    'crepos',
+    '%s_CREPOS' % PROG_NAME.upper(),
+    [u'ansible-collections/community.general'],
+    value_type='list'
+)
 
 ###########################################
 #   METADATA RECEIVER
