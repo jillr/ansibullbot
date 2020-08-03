@@ -104,6 +104,7 @@ CREPOS = C.DEFAULT_CREPOS
 repo_data = {'ansible-collections/community.general': {'branch': 'master', 'shippable_prj' : '5e664a167c32620006c9fa50'},
              'ansible-collections/community.aws': {'branch': 'main', 'shippable_prj' : '5e5ed2ae0fcc0d0006d2c037'},
              'ansible-collections/amazon.aws': {'branch': 'main', 'shippable_prj' : '5e4451b6aa9a61000733064c'},
+             'ansible-collections/vmware': {'branch': 'main'},
              }
 
 MREPOS = [x for x in REPOS if u'ansible' in x]
